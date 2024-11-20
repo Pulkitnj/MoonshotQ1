@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchEmailBody } from "../services/emailService";
 
-const EmailBody = ({ email }) => {
+const EmailBody = ({ email, onToggleFavorite }) => {
   const [body, setBody] = useState("");
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const EmailBody = ({ email }) => {
     <div className="email-body">
       <h2>{email.subject}</h2>
       <p>{body}</p>
-      <button onClick={() => (email.favorite = !email.favorite)}>
+      <button onClick={() => onToggleFavorite(email.id)}>
         {email.favorite ? "Unmark Favorite" : "Mark as Favorite"}
       </button>
     </div>

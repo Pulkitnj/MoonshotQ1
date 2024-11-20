@@ -9,11 +9,33 @@ const EmailClient = () => {
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
-    fetchEmails().then((data) => setEmails(data));
+    fetchEmails().then((data) =>
+      setEmails(
+        data.map((email) => ({
+          ...email,
+          read: false, // Initialize read state
+          favorite: false, // Initialize favorite state
+        }))
+      )
+    );
   }, []);
 
   const handleEmailClick = (email) => {
     setSelectedEmail(email);
+    // Mark email as read when clicked
+    setEmails((prevEmails) =>
+      prevEmails.map((e) =>
+        e.id === email.id ? { ...e, read: true } : e
+      )
+    );
+  };
+
+  const toggleFavorite = (emailId) => {
+    setEmails((prevEmails) =>
+      prevEmails.map((email) =>
+        email.id === emailId ? { ...email, favorite: !email.favorite } : email
+      )
+    );
   };
 
   const filteredEmails = emails.filter((email) => {
@@ -33,8 +55,14 @@ const EmailClient = () => {
         <button onClick={() => setFilter("favorites")}>Favorites</button>
       </div>
       <div className="content">
-        <EmailList emails={filteredEmails} onEmailClick={handleEmailClick} selectedEmail={selectedEmail} />
-        {selectedEmail && <EmailBody email={selectedEmail} />}
+        <EmailList
+          emails={filteredEmails}
+          onEmailClick={handleEmailClick}
+          selectedEmail={selectedEmail}
+        />
+        {selectedEmail && (
+          <EmailBody email={selectedEmail} onToggleFavorite={toggleFavorite} />
+        )}
       </div>
     </div>
   );
