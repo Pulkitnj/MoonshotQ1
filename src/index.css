@@ -1,0 +1,98 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #F4F5F9;
+  margin: 0;
+  padding: 0;
+}
+
+.filter {
+  font-size: 16px; /* Standard font size */
+  font-weight: bold; /* Emphasizes the "Filter" label */
+  color: #333; /* Darker text for visibility */
+}
+
+.email-client {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  
+}
+
+.header {
+  display: flex;
+  background: #E1E4EA;
+  padding: 10px;
+  gap: 20px;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+}
+
+.email-list {
+  background: white;
+  border-right: 1px solid #CFD2DC;
+  overflow-y: scroll;
+}
+
+.email-item {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #CFD2DC;
+}
+
+.email-item.unread {
+  background: white;
+}
+
+.email-item.read {
+  background: #F2F2F2;
+}
+
+.email-body {
+  flex: 1;
+  padding: 20px;
+  background: white;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px; /* Fixed size */
+  height: 40px; /* Fixed size */
+  background-color: #007bff; /* A blue background color */
+  color: white;
+  border-radius: 50%; /* Makes it a circle */
+  margin-right: 15px; /* Adds space between avatar and content */
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase; /* Capitalizes the letter */
+  flex-shrink: 0; /* Prevents the avatar from shrinking */
+}
+
+.email-item-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.favdate{
+  display: flex;
+  gap: 10px;
+}
+
+.subject{
+  margin-bottom: 10px;
+}
+
+.snippet{
+  color: #6C757D;
+  margin-bottom: 10px;
+}
+
+.date{
+  margin-top: 3px;
+}
+
