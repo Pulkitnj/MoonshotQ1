@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 
 const EmailList = ({ emails, onEmailClick, selectedEmail }) => {
-  const isExpanded = !selectedEmail; // 100% width if no email is selected, otherwise 30%.
+  const isExpanded = !selectedEmail;
+  const [page, setPage] = useState(1);
+  const PageHandler = (page) => {
+    setPage(page);
+  };
 
   return (
     <div
@@ -10,7 +14,7 @@ const EmailList = ({ emails, onEmailClick, selectedEmail }) => {
         width: isExpanded ? "100%" : "30%",
       }}
     >
-      {emails.map((email) => (
+      {emails.slice(page*10-10,page*10).map((email) => (
         <div
           key={email.id}
           className={`email-item ${email.read ? "read" : "unread"}`}
@@ -30,6 +34,33 @@ const EmailList = ({ emails, onEmailClick, selectedEmail }) => {
           </div>
         </div>
       ))}
+      {emails.length > 0 && (
+        <div className="pagination-container">
+          <div className="pagination">
+            <span 
+              className={page > 1 ? "pagination__button" : "pagination__button pagination__disable"}
+              onClick={() => {
+                if (page > 1) setPage(page - 1);
+              }}>◀</span>
+            {[...Array(Math.ceil(emails.length / 10))].map((_, index) => {
+              return (
+                <span
+                  className={page === index + 1 ? "pagination__button pagination__selected" : "pagination__button"}
+                  key={index}
+                  onClick={() => PageHandler(index + 1)}
+                >
+                  {index + 1}
+                </span>
+              );
+            })}
+            <span 
+              className={page < Math.ceil(emails.length / 10) ? "pagination__button" : "pagination__button pagination__disable"}
+              onClick={() => {
+                if (page < Math.ceil(emails.length / 10)) setPage(page + 1);
+              }}>▶</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
